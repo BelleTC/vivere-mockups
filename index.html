@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vivere Hotel — Website Revamp Mockup Hub</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #6e9240;
+      --green-dark: #527030;
+      --green-subtle: #f0f4ec;
+      --green-mid: #dce8cc;
+      --charcoal: #2c2c2c;
+      --cream: #f5f2ec;
+      --white: #ffffff;
+      --muted: #6c6c70;
+      --border: #e2dfd8;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Jost', 'Futura', Arial, sans-serif;
+    }
+
+    body { font-family: var(--font-body); background: var(--cream); color: var(--charcoal); font-size: 14px; line-height: 1.6; }
+
+    /* ——— TOP BAR ——— */
+    .topbar { background: var(--charcoal); color: rgba(255,255,255,0.7); font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 9px 40px; display: flex; align-items: center; justify-content: space-between; }
+    .topbar strong { color: var(--white); }
+    .topbar-right { display: flex; gap: 20px; align-items: center; }
+    .status-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 5px; }
+    .dot-signed { background: var(--green); }
+    .dot-review { background: #e8a020; }
+    .dot-soon { background: #aaa; }
+
+    /* ——— HEADER ——— */
+    header { background: var(--white); border-bottom: 1px solid var(--border); padding: 40px; display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+    .header-brand { font-family: var(--font-display); font-size: 13px; font-weight: 500; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+    .header-title { font-family: var(--font-display); font-size: 42px; font-weight: 500; color: var(--charcoal); line-height: 1.1; }
+    .header-title span { color: var(--green); }
+    .header-meta { font-size: 12px; color: var(--muted); font-weight: 300; margin-top: 10px; }
+    .header-meta strong { color: var(--charcoal); font-weight: 600; }
+    .header-badge { background: var(--green-subtle); border: 1px solid var(--green-mid); padding: 10px 18px; text-align: right; flex-shrink: 0; }
+    .header-badge p { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin-bottom: 4px; }
+    .header-badge span { font-family: var(--font-display); font-size: 20px; font-weight: 500; color: var(--charcoal); }
+
+    /* ——— PROGRESS BAR ——— */
+    .progress-bar-wrap { background: var(--white); border-bottom: 1px solid var(--border); padding: 20px 40px; display: flex; align-items: center; gap: 24px; }
+    .progress-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+    .progress-track { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--green); border-radius: 3px; width: 28.6%; /* 2 of 7 pages */ transition: width 0.5s ease; }
+    .progress-count { font-size: 12px; font-weight: 600; color: var(--charcoal); white-space: nowrap; }
+
+    /* ——— MAIN LAYOUT ——— */
+    main { max-width: 1200px; margin: 0 auto; padding: 48px 40px; display: grid; grid-template-columns: 1fr 320px; gap: 48px; align-items: start; }
+
+    /* ——— SECTION LABEL ——— */
+    .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--green); margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--green-mid); }
+
+    /* ——— PAGE CARDS ——— */
+    .pages-grid { display: flex; flex-direction: column; gap: 16px; }
+
+    .page-card { background: var(--white); border: 1px solid var(--border); display: flex; align-items: stretch; transition: box-shadow 0.2s; text-decoration: none; color: inherit; }
+    .page-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+    .page-card.disabled { pointer-events: none; opacity: 0.6; }
+
+    .card-thumb { width: 160px; flex-shrink: 0; overflow: hidden; background: var(--green-subtle); display: flex; align-items: center; justify-content: center; position: relative; }
+    .card-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .card-thumb-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 110px; gap: 8px; }
+    .card-thumb-placeholder svg { width: 28px; height: 28px; stroke: var(--green-mid); fill: none; stroke-width: 1.5; }
+    .card-thumb-placeholder span { font-size: 10px; color: var(--green-mid); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    .card-body { flex: 1; padding: 20px 24px; display: flex; flex-direction: column; justify-content: space-between; }
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+    .card-name { font-family: var(--font-display); font-size: 22px; font-weight: 500; color: var(--charcoal); }
+    .card-url { font-size: 11px; color: var(--muted); font-weight: 300; margin-bottom: 10px; }
+    .card-desc { font-size: 13px; color: var(--muted); line-height: 1.7; font-weight: 300; }
+
+    .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
+    .card-sections { font-size: 11px; color: var(--muted); font-weight: 300; }
+    .card-cta { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); display: flex; align-items: center; gap: 4px; }
+    .card-cta svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+    /* ——— STATUS BADGES ——— */
+    .badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 2px; flex-shrink: 0; }
+    .badge-signed { background: var(--green-subtle); color: var(--green); border: 1px solid var(--green-mid); }
+    .badge-review { background: #fff8ec; color: #b87a10; border: 1px solid #f0d89a; }
+    .badge-soon { background: #f5f5f5; color: #999; border: 1px solid #e0e0e0; }
+
+    /* ——— SIDEBAR ——— */
+    .sidebar { display: flex; flex-direction: column; gap: 32px; }
+
+    .sidebar-card { background: var(--white); border: 1px solid var(--border); padding: 24px; }
+
+    /* Brand tokens */
+    .token-row { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+    .token-item { display: flex; align-items: center; gap: 12px; }
+    .color-swatch { width: 28px; height: 28px; border-radius: 2px; border: 1px solid var(--border); flex-shrink: 0; }
+    .token-name { font-size: 12px; font-weight: 600; color: var(--charcoal); }
+    .token-value { font-size: 11px; color: var(--muted); font-weight: 300; font-family: monospace; }
+
+    .font-preview { margin-top: 14px; display: flex; flex-direction: column; gap: 12px; }
+    .font-item { padding: 12px; background: var(--cream); border: 1px solid var(--border); }
+    .font-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+    .font-sample-display { font-family: var(--font-display); font-size: 22px; color: var(--charcoal); }
+    .font-sample-body { font-family: var(--font-body); font-size: 14px; color: var(--charcoal); }
+    .font-stack { font-size: 10px; color: var(--muted); font-weight: 300; margin-top: 2px; }
+
+    /* Dev notes */
+    .dev-table { width: 100%; margin-top: 14px; border-collapse: collapse; }
+    .dev-table td { padding: 8px 0; border-bottom: 1px solid var(--border); vertical-align: top; font-size: 12px; }
+    .dev-table td:first-child { font-weight: 600; color: var(--charcoal); width: 46%; padding-right: 10px; }
+    .dev-table td:last-child { color: var(--muted); font-weight: 300; word-break: break-all; font-family: monospace; font-size: 11px; }
+    .dev-table tr:last-child td { border-bottom: none; }
+
+    /* Pending list */
+    .pending-list { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+    .pending-item { display: flex; gap: 8px; align-items: flex-start; }
+    .pending-dot { width: 5px; height: 5px; border-radius: 50%; background: #e8a020; flex-shrink: 0; margin-top: 6px; }
+    .pending-text { font-size: 12px; color: var(--muted); font-weight: 300; line-height: 1.5; }
+    .pending-text strong { color: var(--charcoal); font-weight: 600; }
+
+    /* ——— CHANGELOG ——— */
+    .changelog-section { max-width: 1200px; margin: 0 auto; padding: 0 40px 64px; }
+    .changelog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; }
+    .log-card { background: var(--white); border: 1px solid var(--border); padding: 20px; }
+    .log-date { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .log-title { font-family: var(--font-display); font-size: 17px; font-weight: 500; color: var(--charcoal); margin-bottom: 10px; }
+    .log-items { display: flex; flex-direction: column; gap: 6px; }
+    .log-item { font-size: 12px; color: var(--muted); font-weight: 300; display: flex; gap: 8px; }
+    .log-item::before { content: '—'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+
+    /* ——— FOOTER ——— */
+    .hub-footer { background: var(--charcoal); color: rgba(255,255,255,0.45); font-size: 11px; padding: 20px 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .hub-footer strong { color: rgba(255,255,255,0.75); }
+    .hub-footer a { color: rgba(255,255,255,0.45); text-decoration: none; }
+    .hub-footer a:hover { color: var(--white); }
+
+    /* ——— DIVIDER ——— */
+    .section-divider { max-width: 1200px; margin: 0 auto 32px; padding: 0 40px; }
+    .section-divider hr { border: none; border-top: 1px solid var(--border); }
+  </style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="topbar">
+  <div>
+    <strong>Vivere Hospitality Group</strong> &nbsp;·&nbsp; Website Revamp Project &nbsp;·&nbsp; Internal Use Only
+  </div>
+  <div class="topbar-right">
+    <span><span class="status-dot dot-signed"></span>Signed Off</span>
+    <span><span class="status-dot dot-review"></span>In Review</span>
+    <span><span class="status-dot dot-soon"></span>Coming Soon</span>
+  </div>
+</div>
+
+<!-- Header -->
+<header>
+  <div>
+    <p class="header-brand">Vivere Hotel Alabang</p>
+    <h1 class="header-title">Website Revamp<br><span>Mockup Hub</span></h1>
+    <p class="header-meta">Last updated: <strong>June 19, 2026</strong> &nbsp;·&nbsp; Contact: <strong>btolentino.lpt@gmail.com</strong></p>
+  </div>
+  <div class="header-badge">
+    <p>Overall progress</p>
+    <span>2 of 7 pages</span>
+  </div>
+</header>
+
+<!-- Progress bar -->
+<div class="progress-bar-wrap">
+  <span class="progress-label">Completion</span>
+  <div class="progress-track">
+    <div class="progress-fill"></div>
+  </div>
+  <span class="progress-count">2 / 7 pages signed off</span>
+</div>
+
+<!-- Main content -->
+<main>
+
+  <!-- Left: page cards -->
+  <div>
+    <p class="section-label">Page Mockups</p>
+    <div class="pages-grid">
+
+      <!-- Homepage -->
+      <a class="page-card" href="vivere-homepage-mockup-v4.html" target="_blank">
+        <div class="card-thumb">
+          <img src="https://viverehotel.com.ph/wp-content/uploads/2022/04/bg-stay.jpg" alt="Homepage preview">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="card-top">
+              <h2 class="card-name">Homepage</h2>
+              <span class="badge badge-signed">&#10003; Signed Off</span>
+            </div>
+            <p class="card-url">viverehotel.com.ph/</p>
+            <p class="card-desc">Full homepage with hero carousel, about section, rooms preview, dining slider, events stats, recognition strip, specials, location + POI section, FAQ, Instagram grid, and footer.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-sections">14 sections &nbsp;·&nbsp; v4 Final</span>
+            <span class="card-cta">Open Mockup <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Stay -->
+      <a class="page-card" href="vivere-stay-mockup-v1.html" target="_blank">
+        <div class="card-thumb">
+          <img src="https://viverehotel.com.ph/wp-content/uploads/2019/11/Deluxe-1-768x429.jpg" alt="Stay page preview">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="card-top">
+              <h2 class="card-name">Stay — Rooms &amp; Suites</h2>
+              <span class="badge badge-signed">&#10003; Signed Off</span>
+            </div>
+            <p class="card-url">viverehotel.com.ph/stay/</p>
+            <p class="card-desc">11 room types across 3 categories (Rooms, Suites, Penthouse) with filter tabs, photo gallery modal on "View Details", Direct Booking Perks strip, amenities grid, and 5-item FAQ.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-sections">8 sections &nbsp;·&nbsp; v1 Final</span>
+            <span class="card-cta">Open Mockup <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Dine -->
+      <div class="page-card disabled">
+        <div class="card-thumb">
+          <div class="card-thumb-placeholder">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+            <span>Coming Soon</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="card-top">
+              <h2 class="card-name">Dine</h2>
+              <span class="badge badge-soon">Coming Soon</span>
+            </div>
+            <p class="card-url">viverehotel.com.ph/dine/</p>
+            <p class="card-desc">The Nest, Shogun, and Lama Pool Place. Menu highlights, dining hours, reservation CTA, dining promotions, and gallery.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-sections">Next in queue</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Meet -->
+      <div class="page-card disabled">
+        <div class="card-thumb">
+          <div class="card-thumb-placeholder">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+            <span>Coming Soon</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="card-top">
+              <h2 class="card-name">Meet</h2>
+              <span class="badge badge-soon">Coming Soon</span>
+            </div>
+            <p class="card-url">viverehotel.com.ph/meet/</p>
+            <p class="card-desc">12 function rooms, MICE capabilities, capacity tables, event packages, and enquiry form. Target audience: corporate and MICE planners.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-sections">Planned</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Celebrate -->
+      <div class="page-card disabled">
+        <div class="card-thumb">
+          <div class="card-thumb-placeholder">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+            <span>Coming Soon</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="card-top">
+              <h2 class="card-name">Celebrate</h2>
+              <span class="badge badge-soon">Coming Soon</span>
+            </div>
+            <p class="card-url">viverehotel.com.ph/celebrate/</p>
+            <p class="card-desc">Weddings, debuts, social events. Venue highlights, event packages, gallery, and enquiry form.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-sections">Planned</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="page-card disabled">
+        <div class="card-thumb">
+          <div class="card-thumb-placeholder">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+            <span>Coming Soon</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="card-top">
+              <h2 class="card-name">FAQ</h2>
+              <span class="badge badge-soon">Coming Soon</span>
+            </div>
+            <p class="card-url">viverehotel.com.ph/faq/</p>
+            <p class="card-desc">Full FAQ page with expanded question bank covering stay, dining, events, policies, and accessibility. AEO-optimized with FAQPage schema.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-sections">Planned</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div class="page-card disabled">
+        <div class="card-thumb">
+          <div class="card-thumb-placeholder">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+            <span>Coming Soon</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="card-top">
+              <h2 class="card-name">Contact</h2>
+              <span class="badge badge-soon">Coming Soon</span>
+            </div>
+            <p class="card-url">viverehotel.com.ph/contact/</p>
+            <p class="card-desc">Segmented contact form (Reservations / Events / The Nest / General), map embed, phone/email directory, and office hours.</p>
+          </div>
+          <div class="card-footer">
+            <span class="card-sections">Planned</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Right: sidebar -->
+  <div class="sidebar">
+
+    <!-- Brand Tokens -->
+    <div class="sidebar-card">
+      <p class="section-label">Brand Colors</p>
+      <div class="token-row">
+        <div class="token-item">
+          <div class="color-swatch" style="background:#6e9240;"></div>
+          <div><div class="token-name">Green (Primary)</div><div class="token-value">#6e9240 / --green</div></div>
+        </div>
+        <div class="token-item">
+          <div class="color-swatch" style="background:#527030;"></div>
+          <div><div class="token-name">Green Dark (Hover)</div><div class="token-value">#527030 / --green-dark</div></div>
+        </div>
+        <div class="token-item">
+          <div class="color-swatch" style="background:#f0f4ec;"></div>
+          <div><div class="token-name">Green Subtle (BG)</div><div class="token-value">#f0f4ec / --green-subtle</div></div>
+        </div>
+        <div class="token-item">
+          <div class="color-swatch" style="background:#2c2c2c;"></div>
+          <div><div class="token-name">Charcoal (Text)</div><div class="token-value">#2c2c2c / --charcoal</div></div>
+        </div>
+        <div class="token-item">
+          <div class="color-swatch" style="background:#f5f2ec;"></div>
+          <div><div class="token-name">Cream (Background)</div><div class="token-value">#f5f2ec / --cream</div></div>
+        </div>
+        <div class="token-item">
+          <div class="color-swatch" style="background:#6c6c70;"></div>
+          <div><div class="token-name">Muted (Body copy)</div><div class="token-value">#6c6c70 / --muted</div></div>
+        </div>
+        <div class="token-item">
+          <div class="color-swatch" style="background:#e2dfd8;"></div>
+          <div><div class="token-name">Border</div><div class="token-value">#e2dfd8 / --border</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <p class="section-label">Typography</p>
+      <div class="font-preview">
+        <div class="font-item">
+          <div class="font-label">Display / Headings</div>
+          <div class="font-sample-display">Cormorant Garamond</div>
+          <div class="font-stack">Georgia, serif fallback</div>
+        </div>
+        <div class="font-item">
+          <div class="font-label">Body / UI</div>
+          <div class="font-sample-body">Jost — 300, 400, 500, 700</div>
+          <div class="font-stack">Futura, Arial fallback</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dev Handoff -->
+    <div class="sidebar-card">
+      <p class="section-label">Developer Handoff Notes</p>
+      <table class="dev-table">
+        <tr>
+          <td>GTM Container</td>
+          <td>GTM-PQ88G4VP<br><em style="font-family:sans-serif;font-size:10px;color:#b87a10;">⚠ Do not change — retains tracking history</em></td>
+        </tr>
+        <tr>
+          <td>Booking Engine</td>
+          <td>swiftbook.io<br>propertyId=303MjcWoHKdOcjlLfHG6FxOTY=</td>
+        </tr>
+        <tr>
+          <td>TrustYou Widget</td>
+          <td>4eb0db23-b3c4-4a8a-830d-f37ce0026861</td>
+        </tr>
+        <tr>
+          <td>Facebook Publisher</td>
+          <td>facebook.com/viverehotel/</td>
+        </tr>
+        <tr>
+          <td>Caching Plugin</td>
+          <td>WP Rocket (server-side — no action needed in HTML)</td>
+        </tr>
+        <tr>
+          <td>Schema Types</td>
+          <td>Hotel, LodgingBusiness, HotelRoom, FAQPage, BreadcrumbList, WebPage</td>
+        </tr>
+        <tr>
+          <td>Canonical Tags</td>
+          <td>Update to live URLs before deployment</td>
+        </tr>
+        <tr>
+          <td>Robots Meta</td>
+          <td>index, follow, max-image-preview:large</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Pending items -->
+    <div class="sidebar-card">
+      <p class="section-label">Pending from Client</p>
+      <div class="pending-list">
+        <div class="pending-item">
+          <div class="pending-dot"></div>
+          <div class="pending-text"><strong>Stay page photos</strong> — Premiere Suite (Bridal Suite), Grand Premiere, Penthouse Imperial, Penthouse Regal, Presidential Suite</div>
+        </div>
+        <div class="pending-item">
+          <div class="pending-dot"></div>
+          <div class="pending-text"><strong>Prime Executive Suite specs</strong> — sqm and full amenity list not in masterfile</div>
+        </div>
+        <div class="pending-item">
+          <div class="pending-dot"></div>
+          <div class="pending-text"><strong>Dine page brief</strong> — menu PDFs or links, dining hours, reservation form destination</div>
+        </div>
+        <div class="pending-item">
+          <div class="pending-dot"></div>
+          <div class="pending-text"><strong>Events packages</strong> — capacity sheets and package PDFs for Meet and Celebrate pages</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Brand voice -->
+    <div class="sidebar-card">
+      <p class="section-label">Brand Voice Rules</p>
+      <div class="pending-list">
+        <div class="pending-item">
+          <div class="pending-dot" style="background:var(--green);"></div>
+          <div class="pending-text">Tone: quietly confident, warm, grounded</div>
+        </div>
+        <div class="pending-item">
+          <div class="pending-dot" style="background:#c0392b;"></div>
+          <div class="pending-text"><strong>Never use:</strong> Luxury / Luxurious / 5-star / Heartfelt</div>
+        </div>
+        <div class="pending-item">
+          <div class="pending-dot" style="background:#c0392b;"></div>
+          <div class="pending-text"><strong>Never use:</strong> emoji, fabricated awards, or invented review quotes</div>
+        </div>
+        <div class="pending-item">
+          <div class="pending-dot" style="background:var(--green);"></div>
+          <div class="pending-text">All nearby POI links must use real Google Maps URLs</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- Changelog -->
+<div class="section-divider"><hr></div>
+<div class="changelog-section">
+  <p class="section-label">Version Log</p>
+  <div class="changelog-grid">
+
+    <div class="log-card">
+      <p class="log-date">June 19, 2026 &nbsp;·&nbsp; Stay Page v1</p>
+      <h3 class="log-title">Stay / Rooms &amp; Suites</h3>
+      <div class="log-items">
+        <div class="log-item">11 room types across Rooms, Suites, Penthouse categories</div>
+        <div class="log-item">Filter tabs (All / Rooms / Suites / Penthouse)</div>
+        <div class="log-item">View Details opens photo gallery modal with thumbnail strip</div>
+        <div class="log-item">Room name corrections: Executive Suite, Premiere Suite (Bridal Suite)</div>
+        <div class="log-item">12 green feather SVG amenity icons</div>
+        <div class="log-item">5-item FAQ accordion (Before You Arrive)</div>
+        <div class="log-item">Direct Booking Perks strip retained</div>
+      </div>
+    </div>
+
+    <div class="log-card">
+      <p class="log-date">June 19, 2026 &nbsp;·&nbsp; Homepage v4</p>
+      <h3 class="log-title">Homepage — Final</h3>
+      <div class="log-items">
+        <div class="log-item">Hero carousel — 4 slides, 5s auto-rotate, pause on click</div>
+        <div class="log-item">Events stats: 5 columns incl. Curated Menu Selections + Sophisticated Styling</div>
+        <div class="log-item">POI section: 18 entries, 6 categories, Google Maps links</div>
+        <div class="log-item">Location: full-width map + 3-column POI grid</div>
+        <div class="log-item">FAQ trimmed to 5 items + View More FAQs → /faq/</div>
+        <div class="log-item">Hotel Information quick answers added to FAQ</div>
+        <div class="log-item">Topbar phone updated to +63 8771 77 77</div>
+      </div>
+    </div>
+
+    <div class="log-card" style="opacity:0.5;">
+      <p class="log-date">Upcoming</p>
+      <h3 class="log-title">Next: Dine Page</h3>
+      <div class="log-items">
+        <div class="log-item">The Nest, Shogun, Lama Pool Place</div>
+        <div class="log-item">Menu highlights and dining hours</div>
+        <div class="log-item">Dining promotions (10% off, After Hours)</div>
+        <div class="log-item">Reservation CTA</div>
+        <div class="log-item">Dining gallery</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="hub-footer">
+  <span><strong>Vivere Hotel Alabang</strong> — Website Revamp &nbsp;·&nbsp; Internal mockup hub — do not index or share publicly</span>
+  <span>Managed by <strong>Belle T.</strong> &nbsp;·&nbsp; <a href="mailto:btolentino.lpt@gmail.com">btolentino.lpt@gmail.com</a></span>
+</div>
+
+</body>
+</html>
